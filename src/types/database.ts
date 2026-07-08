@@ -1,5 +1,5 @@
 /**
- * Astrosuman — Database type definitions.
+ * SudnadiAstro — Database type definitions.
  *
  * These mirror the Supabase Postgres schema created in the SQL migrations.
  * They provide full type safety when using the Supabase client.

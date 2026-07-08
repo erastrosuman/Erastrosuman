@@ -62,7 +62,7 @@ const sections = [
     id: "ip",
     title: "5. Intellectual Property",
     content:
-      "All content on this website — including text, images, charts, and reports — is the intellectual property of astrosuman.com and may not be copied, reproduced, or redistributed without prior written permission.",
+      "All content on this website — including text, images, charts, and reports — is the intellectual property of sudnadiastro.com and may not be copied, reproduced, or redistributed without prior written permission.",
   },
   {
     id: "privacy-data",
@@ -74,7 +74,7 @@ const sections = [
     id: "liability",
     title: "7. Limitation of Liability",
     content:
-      "astrosuman.com, its owner(s), and affiliates shall not be held liable for any loss, damage, or inconvenience arising directly or indirectly from the use of our website or services.",
+      "sudnadiastro.com, its owner(s), and affiliates shall not be held liable for any loss, damage, or inconvenience arising directly or indirectly from the use of our website or services.",
   },
   {
     id: "modification",
@@ -139,7 +139,7 @@ function TermsPage() {
             <p className="text-text-body leading-relaxed">
               Welcome to{" "}
               <a href="https://www.sudnadiastro.com" className="text-saffron-hover font-medium hover:underline">
-                astrosuman.com
+                sudnadiastro.com
               </a>
               . By accessing or using this website and its services, you agree to be bound by the following Terms and
               Conditions. If you do not agree to these terms, please do not use our website.
