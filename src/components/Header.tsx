@@ -107,58 +107,72 @@ export function Header() {
         </div>
       </header>
 
-      {/* Mobile drawer */}
-      {open && (
-        <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true" aria-label="Menu">
-          <div
-            className="absolute inset-0 bg-indigo-deep/60"
-            onClick={() => setOpen(false)}
-            aria-hidden
-          />
-          <div className="absolute right-0 top-0 h-full w-[86%] max-w-sm bg-indigo-deep text-cream flex flex-col">
-            <div className="flex items-center justify-between px-6 h-16 border-b border-white/10">
-              <span className="font-display text-xl">
-                SudnadiAstro <span className="text-saffron">✦</span>
-              </span>
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                aria-label="Close menu"
-                className="w-11 h-11 inline-flex items-center justify-center rounded-full hover:bg-white/10"
-              >
-                <X size={22} aria-hidden />
-              </button>
-            </div>
-            <nav className="flex-1 px-6 py-8 flex flex-col gap-1" aria-label="Mobile">
-              {navLinks.map((l) => (
-                <Link
-                  key={l.to}
-                  to={l.to}
-                  onClick={() => setOpen(false)}
-                  className="font-display text-[26px] py-3 text-cream hover:text-saffron-light transition-colors"
-                >
-                  {l.label}
-                </Link>
-              ))}
-            </nav>
-            <div className="px-6 pb-10 space-y-3">
+      {/* Mobile drawer — always mounted, animated via CSS translate */}
+      <div
+        className={`fixed inset-0 z-50 lg:hidden transition-all duration-300 ${
+          open ? "pointer-events-auto" : "pointer-events-none"
+        }`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu"
+        aria-hidden={!open}
+      >
+        {/* Backdrop */}
+        <div
+          className={`absolute inset-0 bg-indigo-deep/60 transition-opacity duration-300 ${
+            open ? "opacity-100" : "opacity-0"
+          }`}
+          onClick={() => setOpen(false)}
+          aria-hidden
+        />
+        {/* Slide-in panel */}
+        <div
+          className={`absolute right-0 top-0 h-full w-[86%] max-w-sm bg-indigo-deep text-cream flex flex-col transition-transform duration-300 ease-in-out ${
+            open ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <div className="flex items-center justify-between px-6 h-16 border-b border-white/10">
+            <span className="font-display text-xl">
+              SudnadiAstro <span className="text-saffron">✦</span>
+            </span>
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              aria-label="Close menu"
+              className="w-11 h-11 inline-flex items-center justify-center rounded-full hover:bg-white/10 active:bg-white/20"
+            >
+              <X size={22} aria-hidden />
+            </button>
+          </div>
+          <nav className="flex-1 px-6 py-8 flex flex-col gap-1 overflow-y-auto" aria-label="Mobile">
+            {navLinks.map((l) => (
               <Link
-                to="/services"
+                key={l.to}
+                to={l.to}
                 onClick={() => setOpen(false)}
-                className="block text-center bg-saffron text-white py-3.5 rounded-full font-semibold"
+                className="font-display text-[26px] py-3 text-cream hover:text-saffron-light transition-colors"
               >
-                Book a Reading
+                {l.label}
               </Link>
-              <a
-                href="tel:+919717691644"
-                className="block text-center border border-white/30 py-3.5 rounded-full font-medium text-cream"
-              >
-                Call +91 97176 91644
-              </a>
-            </div>
+            ))}
+          </nav>
+          <div className="px-6 pb-10 space-y-3" style={{ paddingBottom: "calc(2.5rem + env(safe-area-inset-bottom, 0px))" }}>
+            <Link
+              to="/services"
+              onClick={() => setOpen(false)}
+              className="block text-center bg-saffron text-white py-3.5 rounded-full font-semibold active:scale-95 transition-transform"
+            >
+              Book a Reading
+            </Link>
+            <a
+              href="tel:+919717691644"
+              className="block text-center border border-white/30 py-3.5 rounded-full font-medium text-cream"
+            >
+              Call +91 97176 91644
+            </a>
           </div>
         </div>
-      )}
+      </div>
     </>
   );
 }

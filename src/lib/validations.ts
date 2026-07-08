@@ -36,13 +36,21 @@ export const bookingFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters.").max(100, "Name is too long."),
   email: z.string().email("Enter a valid email address."),
   phone: z.string().regex(/^\d{10}$/, "Enter a 10-digit phone number."),
-  dateOfBirth: z.string().min(1, "Date of birth is required."),
+  // dateOfBirth is not required for the "Ask a Question" service (which uses seedNumber instead)
+  dateOfBirth: z.string().optional().or(z.literal("")),
   birthTime: z.string().min(1, "Birth time is required."),
   birthPlace: z
     .string()
     .min(3, "Birth place must be at least 3 characters.")
     .max(200, "Birth place is too long."),
   question: z.string().max(5000, "Question is too long.").optional().or(z.literal("")),
+  // seedNumber is only required for the "Ask a Question" service
+  seedNumber: z
+    .number()
+    .int()
+    .min(1, "Please enter a number between 1 and 249.")
+    .max(249, "Please enter a number between 1 and 249.")
+    .optional(),
 });
 
 export type BookingFormData = z.infer<typeof bookingFormSchema>;

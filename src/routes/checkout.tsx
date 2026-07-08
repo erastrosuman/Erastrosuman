@@ -102,23 +102,40 @@ type StepId =
   | "name"
   | "email"
   | "phone"
+  | "seedNumber"
   | "dateOfBirth"
   | "birthTime"
   | "birthPlace"
   | "question"
   | "review";
 
-const STEPS: { id: StepId; label: string; fields: (keyof FormValues)[] }[] = [
-  { id: "service", label: "Readings", fields: ["serviceSlugs"] },
-  { id: "name", label: "Your name", fields: ["name"] },
-  { id: "email", label: "Email", fields: ["email"] },
-  { id: "phone", label: "Mobile", fields: ["phone"] },
-  { id: "dateOfBirth", label: "Date of birth", fields: ["dateOfBirth"] },
-  { id: "birthTime", label: "Time of birth", fields: ["birthTime"] },
+// All possible steps — filtered dynamically based on cart contents.
+const ALL_STEPS: { id: StepId; label: string; fields: (keyof FormValues)[] }[] = [
+  { id: "service",    label: "Readings",       fields: ["serviceSlugs"] },
+  { id: "name",       label: "Your name",      fields: ["name"] },
+  { id: "email",      label: "Email",          fields: ["email"] },
+  { id: "phone",      label: "Mobile",         fields: ["phone"] },
+  // seedNumber replaces dateOfBirth for the "ask-question" service
+  { id: "seedNumber", label: "Seed number",    fields: ["seedNumber"] },
+  { id: "dateOfBirth",label: "Date of birth",  fields: ["dateOfBirth"] },
+  { id: "birthTime",  label: "Time of birth",  fields: ["birthTime"] },
   { id: "birthPlace", label: "Place of birth", fields: ["birthPlace"] },
-  { id: "question", label: "Your question", fields: [] },
-  { id: "review", label: "Confirm & pay", fields: ["confirmDetails"] },
+  { id: "question",   label: "Your question",  fields: [] },
+  { id: "review",     label: "Confirm & pay",  fields: ["confirmDetails"] },
 ];
+
+// Returns the active step list based on whether "ask-question" is in cart.
+function buildSteps(isAskQuestion: boolean) {
+  return ALL_STEPS.filter((s) => {
+    if (isAskQuestion) {
+      // For Ask a Question: show seedNumber, hide dateOfBirth
+      return s.id !== "dateOfBirth";
+    } else {
+      // For all other services: hide seedNumber
+      return s.id !== "seedNumber";
+    }
+  });
+}
 
 function CheckoutPage() {
   const { service: presetSlug, services: presetSlugs } = Route.useSearch();
@@ -157,6 +174,7 @@ function CheckoutPage() {
       birthTime: "",
       birthPlace: "",
       question: "",
+      seedNumber: undefined,
       confirmDetails: false,
     },
   });
@@ -185,6 +203,12 @@ function CheckoutPage() {
     setValue("serviceSlugs", cart.slugs, { shouldValidate: false });
   }, [cart.slugs, setValue]);
 
+  // Determine if the "Ask a Question" service is in the cart
+  const isAskQuestion = cart.slugs.includes("ask-question");
+
+  // Build the active steps list based on cart contents
+  const STEPS = buildSteps(isAskQuestion);
+
   const name = watch("name");
   const email = watch("email");
   const phone = watch("phone");
@@ -192,6 +216,7 @@ function CheckoutPage() {
   const time = watch("birthTime");
   const place = watch("birthPlace");
   const question = watch("question");
+  const seedNumber = watch("seedNumber");
 
   const isProcessing = checkoutStep !== "idle";
   const isLastStep = stepIndex === STEPS.length - 1;
@@ -449,7 +474,35 @@ function CheckoutPage() {
                 </StepShell>
               )}
 
-              {/* ── Step: Date of birth ───────────────────────── */}
+              {/* ── Step: Seed Number (Ask a Question only) ───── */}
+              {STEPS[stepIndex].id === "seedNumber" && (
+                <StepShell
+                  eyebrow="Ask a Question"
+                  question="Please select your seed number"
+                  hint="This is a seed — please select one random number between 1 to 249."
+                >
+                  <input
+                    id="seedNumber"
+                    type="number"
+                    min={1}
+                    max={249}
+                    autoFocus
+                    inputMode="numeric"
+                    aria-invalid={!!errors.seedNumber}
+                    {...register("seedNumber", { valueAsNumber: true })}
+                    className={bigInputCls(!!errors.seedNumber)}
+                    placeholder="e.g. 116"
+                  />
+                  <FieldError message={errors.seedNumber?.message as string | undefined} />
+                  <p className="mt-3 text-xs text-text-muted italic bg-cream/60 border border-border-light rounded px-3 py-2 leading-relaxed">
+                    (Choose any number from 1 to 249 that comes to your mind at random — this seed
+                    number is used as a unique reference for your question and helps the astrologer
+                    personalise your reading.)
+                  </p>
+                </StepShell>
+              )}
+
+              {/* ── Step: Date of birth (non Ask-a-Question) ──── */}
               {STEPS[stepIndex].id === "dateOfBirth" && (
                 <StepShell
                   eyebrow="Birth details"
@@ -546,11 +599,19 @@ function CheckoutPage() {
                     <ReviewRow label="Name" value={name || "—"} onEdit={() => jumpTo("name")} />
                     <ReviewRow label="Email" value={email || "—"} onEdit={() => jumpTo("email")} />
                     <ReviewRow label="Mobile" value={phone || "—"} onEdit={() => jumpTo("phone")} />
-                    <ReviewRow
-                      label="Date of birth"
-                      value={dob || "—"}
-                      onEdit={() => jumpTo("dateOfBirth")}
-                    />
+                    {isAskQuestion ? (
+                      <ReviewRow
+                        label="Seed Number"
+                        value={seedNumber ? String(seedNumber) : "—"}
+                        onEdit={() => jumpTo("seedNumber")}
+                      />
+                    ) : (
+                      <ReviewRow
+                        label="Date of birth"
+                        value={dob || "—"}
+                        onEdit={() => jumpTo("dateOfBirth")}
+                      />
+                    )}
                     <ReviewRow
                       label="Time of birth"
                       value={time || "—"}
@@ -590,16 +651,28 @@ function CheckoutPage() {
                         {...register("confirmDetails")}
                         className="mt-1 h-4 w-4 rounded border-border-light text-saffron focus:ring-saffron focus:outline-none"
                       />
-                      <span className="text-sm text-text-body leading-relaxed group-hover:text-indigo-deep select-none">
-                        I confirm that my birth date (
-                        <strong className="text-indigo-deep">{dob || "not entered yet"}</strong>),
-                        time (
-                        <strong className="text-indigo-deep">{time || "not entered yet"}</strong>),
-                        and place (
-                        <strong className="text-indigo-deep">{place || "not entered yet"}</strong>)
-                        are correct
-                        {cart.count > 1 ? ", and apply to every reading in this booking" : ""}.
-                      </span>
+                      {isAskQuestion ? (
+                        <span className="text-sm text-text-body leading-relaxed group-hover:text-indigo-deep select-none">
+                          I confirm that my seed number (
+                          <strong className="text-indigo-deep">{seedNumber ?? "not entered yet"}</strong>),
+                          birth time (
+                          <strong className="text-indigo-deep">{time || "not entered yet"}</strong>),
+                          and place (
+                          <strong className="text-indigo-deep">{place || "not entered yet"}</strong>)
+                          are correct.
+                        </span>
+                      ) : (
+                        <span className="text-sm text-text-body leading-relaxed group-hover:text-indigo-deep select-none">
+                          I confirm that my birth date (
+                          <strong className="text-indigo-deep">{dob || "not entered yet"}</strong>),
+                          time (
+                          <strong className="text-indigo-deep">{time || "not entered yet"}</strong>),
+                          and place (
+                          <strong className="text-indigo-deep">{place || "not entered yet"}</strong>)
+                          are correct
+                          {cart.count > 1 ? ", and apply to every reading in this booking" : ""}.
+                        </span>
+                      )}
                     </label>
                     <FieldError message={errors.confirmDetails?.message} />
                   </div>

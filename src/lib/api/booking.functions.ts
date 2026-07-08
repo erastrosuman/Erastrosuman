@@ -114,10 +114,14 @@ export const createBooking = createServerFn({ method: "POST" })
             customer_name: data.name,
             customer_email: data.email,
             customer_phone: data.phone,
-            date_of_birth: data.dateOfBirth,
+            date_of_birth: data.dateOfBirth || "",
             birth_time: data.birthTime,
             birth_place: data.birthPlace,
-            question: data.question || null,
+            // For "Ask a Question": prepend the seed number to the question
+            question:
+              service.slug === "ask-question" && data.seedNumber
+                ? `[Seed: ${data.seedNumber}]${data.question ? " — " + data.question : ""}`
+                : data.question || null,
             status: "pending_payment" as const,
             amount: service.price,
             currency: "INR",
