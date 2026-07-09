@@ -19,12 +19,21 @@ export const Route = createFileRoute("/services/$slug")({
   head: ({ params }) => {
     const s = services.find((x) => x.slug === params.slug);
     if (!s) return { meta: [{ title: "Reading not found — SudnadiAstro" }] };
+    // seo_title and seo_description are only present on DB-sourced services;
+    // static data does not have them so we auto-generate fallbacks.
+    const seoTitle = (s as typeof s & { seo_title?: string | null }).seo_title
+      ?? `${s.name} — ₹${s.price} — SudnadiAstro`;
+    const seoDesc = (s as typeof s & { seo_description?: string | null }).seo_description
+      ?? `${s.tagline}. ${s.desc}`;
     return {
       meta: [
-        { title: `${s.name} — ₹${s.price} — SudnadiAstro` },
-        { name: "description", content: `${s.tagline}. ${s.desc}` },
-        { property: "og:title", content: `${s.name} — SudnadiAstro` },
-        { property: "og:description", content: s.desc },
+        { title: seoTitle },
+        { name: "description", content: seoDesc.slice(0, 160) },
+        { property: "og:title", content: seoTitle },
+        { property: "og:description", content: seoDesc.slice(0, 160) },
+        ...((s as typeof s & { image?: string }).image
+          ? [{ property: "og:image", content: (s as typeof s & { image?: string }).image as string }]
+          : []),
       ],
     };
   },
@@ -159,13 +168,19 @@ function ServiceDetail() {
 
             <div className="relative">
               <div className="aspect-[5/4] rounded-lg overflow-hidden border border-border-warm shadow-tilt bg-cream">
-                <img
-                  src={service.image}
-                  alt={`Illustration for ${service.name}`}
-                  width={800}
-                  height={640}
-                  className="w-full h-full object-cover"
-                />
+                {service.image ? (
+                  <img
+                    src={service.image}
+                    alt={`Illustration for ${service.name}`}
+                    width={800}
+                    height={640}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-saffron-ghost via-cream-warm to-parchment flex items-center justify-center">
+                    <span className="font-display text-[120px] text-saffron/20 select-none" aria-hidden>✦</span>
+                  </div>
+                )}
               </div>
             </div>
           </div>

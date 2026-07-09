@@ -38,14 +38,20 @@ export function ServiceCard({ service, delay = 0 }: { service: Service; delay?: 
         className="block focus-visible:outline-none"
       >
         <div className="relative aspect-[5/4] overflow-hidden bg-cream-warm">
-          <img
-            src={service.image}
-            alt={`Illustration for ${service.name}`}
-            loading="lazy"
-            width={800}
-            height={640}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-          />
+          {service.image ? (
+            <img
+              src={service.image}
+              alt={`Illustration for ${service.name}`}
+              loading="lazy"
+              width={800}
+              height={640}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-saffron-ghost via-cream-warm to-parchment flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.04]">
+              <span className="font-display text-[80px] text-saffron/25 select-none" aria-hidden>✦</span>
+            </div>
+          )}
           <span
             className={`absolute top-3 left-3 ${bg} ${text} text-[11px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full`}
           >

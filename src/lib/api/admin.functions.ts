@@ -235,3 +235,318 @@ export const updateContactStatus = createServerFn({ method: "POST" })
 
     return { success: true as const };
   });
+
+// ─── List Services (admin — includes inactive) ──────────────
+
+export const listServicesAdmin = createServerFn({ method: "POST" })
+  .validator(z.object({ authToken: z.string() }))
+  .handler(async ({ data }) => {
+    await requireAdmin(`Bearer ${data.authToken}`);
+    const { getSupabaseAdmin } = await import("../supabase.server");
+    const db = getSupabaseAdmin();
+    const { data: rows, error } = await db
+      .from("services")
+      .select("*")
+      .order("sort_order", { ascending: true });
+    if (error) throw new Error("Failed to fetch services.");
+    return { success: true as const, services: rows ?? [] };
+  });
+
+export const createService = createServerFn({ method: "POST" })
+  .validator(
+    z.object({
+      authToken: z.string(),
+      service: z.object({
+        slug: z.string().min(1),
+        name: z.string().min(1),
+        price: z.number(),
+        category: z.string().default("personal"),
+        tagline: z.string().default(""),
+        description: z.string().default(""),
+        delivery_text: z.string().default(""),
+        image_url: z.string().nullable().optional(),
+        covers: z.array(z.string()).default([]),
+        receive: z.array(z.string()).default([]),
+        faqs: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
+        active: z.boolean().default(true),
+        sort_order: z.number().default(0),
+        seo_title: z.string().nullable().optional(),
+        seo_description: z.string().nullable().optional(),
+      }),
+    }),
+  )
+  .handler(async ({ data }) => {
+    const admin = await requireAdmin(`Bearer ${data.authToken}`);
+    const { getSupabaseAdmin } = await import("../supabase.server");
+    const db = getSupabaseAdmin();
+    const { data: row, error } = await db.from("services").insert(data.service).select().single();
+    if (error) throw new Error(`Failed to create service: ${error.message}`);
+    await db.from("audit_logs").insert({
+      actor_user_id: admin.userId,
+      action: "service_created",
+      entity_type: "services",
+      entity_id: row.id,
+      details: { slug: row.slug, name: row.name },
+    });
+    return { success: true as const, service: row };
+  });
+
+export const updateService = createServerFn({ method: "POST" })
+  .validator(
+    z.object({
+      authToken: z.string(),
+      id: z.string().uuid(),
+      updates: z.object({
+        slug: z.string().min(1).optional(),
+        name: z.string().min(1).optional(),
+        price: z.number().optional(),
+        category: z.string().optional(),
+        tagline: z.string().optional(),
+        description: z.string().optional(),
+        delivery_text: z.string().optional(),
+        image_url: z.string().nullable().optional(),
+        covers: z.array(z.string()).optional(),
+        receive: z.array(z.string()).optional(),
+        faqs: z.array(z.object({ q: z.string(), a: z.string() })).optional(),
+        active: z.boolean().optional(),
+        sort_order: z.number().optional(),
+        seo_title: z.string().nullable().optional(),
+        seo_description: z.string().nullable().optional(),
+      }),
+    }),
+  )
+  .handler(async ({ data }) => {
+    const admin = await requireAdmin(`Bearer ${data.authToken}`);
+    const { getSupabaseAdmin } = await import("../supabase.server");
+    const db = getSupabaseAdmin();
+    const { error } = await db.from("services").update(data.updates).eq("id", data.id);
+    if (error) throw new Error(`Failed to update service: ${error.message}`);
+    await db.from("audit_logs").insert({
+      actor_user_id: admin.userId,
+      action: "service_updated",
+      entity_type: "services",
+      entity_id: data.id,
+      details: { fields: Object.keys(data.updates) },
+    });
+    return { success: true as const };
+  });
+
+export const deleteService = createServerFn({ method: "POST" })
+  .validator(z.object({ authToken: z.string(), id: z.string().uuid() }))
+  .handler(async ({ data }) => {
+    const admin = await requireAdmin(`Bearer ${data.authToken}`);
+    const { getSupabaseAdmin } = await import("../supabase.server");
+    const db = getSupabaseAdmin();
+    const { error } = await db.from("services").update({ active: false }).eq("id", data.id);
+    if (error) throw new Error(`Failed to delete service: ${error.message}`);
+    await db.from("audit_logs").insert({
+      actor_user_id: admin.userId,
+      action: "service_deleted",
+      entity_type: "services",
+      entity_id: data.id,
+      details: { method: "soft_delete" },
+    });
+    return { success: true as const };
+  });
+
+export const reorderServices = createServerFn({ method: "POST" })
+  .validator(
+    z.object({
+      authToken: z.string(),
+      order: z.array(z.object({ id: z.string().uuid(), sort_order: z.number() })),
+    }),
+  )
+  .handler(async ({ data }) => {
+    const admin = await requireAdmin(`Bearer ${data.authToken}`);
+    const { getSupabaseAdmin } = await import("../supabase.server");
+    const db = getSupabaseAdmin();
+    await Promise.all(
+      data.order.map(({ id, sort_order }) =>
+        db.from("services").update({ sort_order }).eq("id", id),
+      ),
+    );
+    await db.from("audit_logs").insert({
+      actor_user_id: admin.userId,
+      action: "services_reordered",
+      entity_type: "services",
+      details: { count: data.order.length },
+    });
+    return { success: true as const };
+  });
+
+export const duplicateService = createServerFn({ method: "POST" })
+  .validator(z.object({ authToken: z.string(), id: z.string().uuid() }))
+  .handler(async ({ data }) => {
+    const admin = await requireAdmin(`Bearer ${data.authToken}`);
+    const { getSupabaseAdmin } = await import("../supabase.server");
+    const db = getSupabaseAdmin();
+    const { data: original, error: fetchError } = await db
+      .from("services").select("*").eq("id", data.id).single();
+    if (fetchError || !original) throw new Error("Service not found.");
+    const { id: _id, created_at: _ca, updated_at: _ua, ...rest } = original;
+    const copy = { ...rest, slug: `${original.slug}-copy`, name: `${original.name} (Copy)`, active: false };
+    const { data: newRow, error: insertError } = await db.from("services").insert(copy).select().single();
+    if (insertError) throw new Error(`Failed to duplicate: ${insertError.message}`);
+    await db.from("audit_logs").insert({
+      actor_user_id: admin.userId,
+      action: "service_duplicated",
+      entity_type: "services",
+      entity_id: newRow.id,
+      details: { originalId: data.id, newSlug: copy.slug },
+    });
+    return { success: true as const, service: newRow };
+  });
+
+// ─── Upload Image ────────────────────────────────────────────
+
+export const uploadImage = createServerFn({ method: "POST" })
+  .validator(
+    z.object({
+      authToken: z.string(),
+      bucket: z.enum(["service-images", "blog-images"]),
+      fileName: z.string().min(1),
+      base64: z.string().min(1),
+      contentType: z.string().default("image/jpeg"),
+    }),
+  )
+  .handler(async ({ data }) => {
+    await requireAdmin(`Bearer ${data.authToken}`);
+    const { getSupabaseAdmin } = await import("../supabase.server");
+    const db = getSupabaseAdmin();
+    const base64Data = data.base64.replace(/^data:[^;]+;base64,/, "");
+    const buffer = Buffer.from(base64Data, "base64");
+    const path = `${Date.now()}-${data.fileName}`;
+    const { error } = await db.storage
+      .from(data.bucket)
+      .upload(path, buffer, { contentType: data.contentType, upsert: false });
+    if (error) throw new Error(`Upload failed: ${error.message}`);
+    const { data: urlData } = db.storage.from(data.bucket).getPublicUrl(path);
+    return { success: true as const, publicUrl: urlData.publicUrl };
+  });
+
+// ─── Blog Post Admin Functions ──────────────────────────────
+
+export const listBlogPostsAdmin = createServerFn({ method: "POST" })
+  .validator(z.object({ authToken: z.string() }))
+  .handler(async ({ data }) => {
+    await requireAdmin(`Bearer ${data.authToken}`);
+    const { getSupabaseAdmin } = await import("../supabase.server");
+    const db = getSupabaseAdmin();
+    const { data: rows, error } = await db
+      .from("blog_posts").select("*").order("created_at", { ascending: false });
+    if (error) throw new Error("Failed to fetch blog posts.");
+    return { success: true as const, posts: rows ?? [] };
+  });
+
+export const createBlogPost = createServerFn({ method: "POST" })
+  .validator(
+    z.object({
+      authToken: z.string(),
+      post: z.object({
+        slug: z.string().min(1),
+        title: z.string().min(1),
+        category: z.string().default(""),
+        excerpt: z.string().default(""),
+        body: z.string().default(""),
+        read_time: z.number().default(5),
+        published: z.boolean().default(false),
+        published_at: z.string().nullable().optional(),
+        hero_image_url: z.string().nullable().optional(),
+        seo_title: z.string().nullable().optional(),
+        seo_description: z.string().nullable().optional(),
+      }),
+    }),
+  )
+  .handler(async ({ data }) => {
+    const admin = await requireAdmin(`Bearer ${data.authToken}`);
+    const { getSupabaseAdmin } = await import("../supabase.server");
+    const db = getSupabaseAdmin();
+    const { data: row, error } = await db.from("blog_posts").insert(data.post).select().single();
+    if (error) throw new Error(`Failed to create post: ${error.message}`);
+    await db.from("audit_logs").insert({
+      actor_user_id: admin.userId,
+      action: "blog_post_created",
+      entity_type: "blog_posts",
+      entity_id: row.id,
+      details: { slug: row.slug, title: row.title },
+    });
+    return { success: true as const, post: row };
+  });
+
+export const updateBlogPost = createServerFn({ method: "POST" })
+  .validator(
+    z.object({
+      authToken: z.string(),
+      id: z.string().uuid(),
+      updates: z.object({
+        slug: z.string().min(1).optional(),
+        title: z.string().min(1).optional(),
+        category: z.string().optional(),
+        excerpt: z.string().optional(),
+        body: z.string().optional(),
+        read_time: z.number().optional(),
+        published: z.boolean().optional(),
+        published_at: z.string().nullable().optional(),
+        hero_image_url: z.string().nullable().optional(),
+        seo_title: z.string().nullable().optional(),
+        seo_description: z.string().nullable().optional(),
+      }),
+    }),
+  )
+  .handler(async ({ data }) => {
+    const admin = await requireAdmin(`Bearer ${data.authToken}`);
+    const { getSupabaseAdmin } = await import("../supabase.server");
+    const db = getSupabaseAdmin();
+    const { error } = await db.from("blog_posts").update(data.updates).eq("id", data.id);
+    if (error) throw new Error(`Failed to update post: ${error.message}`);
+    await db.from("audit_logs").insert({
+      actor_user_id: admin.userId,
+      action: "blog_post_updated",
+      entity_type: "blog_posts",
+      entity_id: data.id,
+      details: { fields: Object.keys(data.updates) },
+    });
+    return { success: true as const };
+  });
+
+export const deleteBlogPost = createServerFn({ method: "POST" })
+  .validator(z.object({ authToken: z.string(), id: z.string().uuid() }))
+  .handler(async ({ data }) => {
+    const admin = await requireAdmin(`Bearer ${data.authToken}`);
+    const { getSupabaseAdmin } = await import("../supabase.server");
+    const db = getSupabaseAdmin();
+    const { error } = await db.from("blog_posts").delete().eq("id", data.id);
+    if (error) throw new Error(`Failed to delete post: ${error.message}`);
+    await db.from("audit_logs").insert({
+      actor_user_id: admin.userId,
+      action: "blog_post_deleted",
+      entity_type: "blog_posts",
+      entity_id: data.id,
+      details: null,
+    });
+    return { success: true as const };
+  });
+
+export const publishBlogPost = createServerFn({ method: "POST" })
+  .validator(z.object({ authToken: z.string(), id: z.string().uuid() }))
+  .handler(async ({ data }) => {
+    const admin = await requireAdmin(`Bearer ${data.authToken}`);
+    const { getSupabaseAdmin } = await import("../supabase.server");
+    const db = getSupabaseAdmin();
+    const { data: current } = await db
+      .from("blog_posts").select("published_at").eq("id", data.id).single();
+    const updates = {
+      published: true,
+      published_at: current?.published_at ?? new Date().toISOString(),
+    };
+    const { error } = await db.from("blog_posts").update(updates).eq("id", data.id);
+    if (error) throw new Error(`Failed to publish post: ${error.message}`);
+    await db.from("audit_logs").insert({
+      actor_user_id: admin.userId,
+      action: "blog_post_published",
+      entity_type: "blog_posts",
+      entity_id: data.id,
+      details: { published_at: updates.published_at },
+    });
+    return { success: true as const };
+  });

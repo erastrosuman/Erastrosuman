@@ -199,3 +199,82 @@
   [data-animate] { opacity: 1; transform: none; }
   .tilt-card:hover { transform: none; }
 }
+
+/* ── Blog body prose styles ──────────────────────────────────
+   Applied to .prose-blog on the public blog post page and the
+   Tiptap editor content area in the admin CMS.
+   No dependency on @tailwindcss/typography.
+──────────────────────────────────────────────────────────── */
+
+.prose-blog h1,
+.prose-blog h2,
+.prose-blog h3,
+.prose-blog h4 {
+  font-family: var(--font-display);
+  color: var(--indigo-deep);
+  line-height: 1.2;
+  margin-top: 1.75em;
+  margin-bottom: 0.5em;
+}
+.prose-blog h1 { font-size: 2rem; font-weight: 700; }
+.prose-blog h2 { font-size: 1.5rem; font-weight: 600; }
+.prose-blog h3 { font-size: 1.2rem; font-weight: 600; }
+
+.prose-blog p { margin-top: 0; margin-bottom: 1em; }
+
+.prose-blog ul,
+.prose-blog ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1em;
+}
+.prose-blog ul { list-style: disc; }
+.prose-blog ol { list-style: decimal; }
+.prose-blog li { margin-bottom: 0.25em; }
+
+.prose-blog blockquote {
+  border-left: 4px solid var(--saffron);
+  padding-left: 1rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin: 1.5em 0;
+}
+
+.prose-blog a {
+  color: var(--saffron);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-blog a:hover { color: var(--saffron-hover); }
+
+.prose-blog code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--cream-warm);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+}
+
+.prose-blog pre {
+  background: var(--indigo-deep);
+  color: var(--cream);
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  margin: 1.5em 0;
+}
+
+.prose-blog hr {
+  border: none;
+  border-top: 1px solid var(--border-light);
+  margin: 2em 0;
+}
+
+.prose-blog img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin: 1.5em 0;
+}
+
+.prose-blog strong { font-weight: 700; color: var(--indigo-deep); }

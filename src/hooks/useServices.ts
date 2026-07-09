@@ -46,7 +46,7 @@ export function useServicesWithFallback() {
         tagline: s.tagline,
         desc: s.description,
         delivery: s.delivery_text,
-        image: "", // images still come from static imports
+        image: s.image_url ?? "", // use DB image URL; empty string triggers placeholder
         covers: s.covers as string[],
         receive: s.receive as string[],
         faqs: s.faqs as { q: string; a: string }[],
