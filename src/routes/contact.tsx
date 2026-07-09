@@ -225,7 +225,7 @@ function ContactPage() {
 
                 <div className="space-y-2 pb-4 mb-5 border-b border-border-light">
                   <h2 className="font-display text-[26px] text-indigo-deep leading-tight">
-                    Send a message
+                    Ask Your Question
                   </h2>
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-text-body">
                     <span className="inline-flex items-center gap-1.5 font-medium text-indigo-deep">

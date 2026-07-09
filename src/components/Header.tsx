@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu, X, Phone, Mail } from "lucide-react";
 import { useState, useEffect } from "react";
 
@@ -16,6 +16,12 @@ const navLinks = [
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  function isActive(to: string) {
+    if (to === "/") return pathname === "/";
+    return pathname === to || pathname.startsWith(to + "/");
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -72,18 +78,23 @@ export function Header() {
               SudnadiAstro <span className="text-saffron text-base">✦</span>
             </Link>
 
-            <nav className="hidden lg:flex items-center gap-8" aria-label="Primary">
-              {navLinks.map((l) => (
-                <Link
-                  key={l.to}
-                  to={l.to}
-                  activeOptions={{ exact: l.to === "/" }}
-                  className="text-[14px] font-medium text-text-body hover:text-saffron transition-colors"
-                  activeProps={{ className: "text-saffron" }}
-                >
-                  {l.label}
-                </Link>
-              ))}
+            <nav className="hidden lg:flex items-center gap-1" aria-label="Primary">
+              {navLinks.map((l) => {
+                const active = isActive(l.to);
+                return (
+                  <Link
+                    key={l.to}
+                    to={l.to}
+                    className={`text-[13.5px] font-medium px-3 py-1.5 rounded-md transition-all ${
+                      active
+                        ? "bg-indigo-deep text-cream shadow-sm"
+                        : "text-text-body hover:bg-saffron-ghost hover:text-saffron"
+                    }`}
+                  >
+                    {l.label}
+                  </Link>
+                );
+              })}
             </nav>
 
             <div className="flex items-center gap-2">
@@ -144,17 +155,24 @@ export function Header() {
               <X size={22} aria-hidden />
             </button>
           </div>
-          <nav className="flex-1 px-6 py-8 flex flex-col gap-1 overflow-y-auto" aria-label="Mobile">
-            {navLinks.map((l) => (
-              <Link
-                key={l.to}
-                to={l.to}
-                onClick={() => setOpen(false)}
-                className="font-display text-[26px] py-3 text-cream hover:text-saffron-light transition-colors"
-              >
-                {l.label}
-              </Link>
-            ))}
+          <nav className="flex-1 px-4 py-6 flex flex-col gap-1 overflow-y-auto" aria-label="Mobile">
+            {navLinks.map((l) => {
+              const active = isActive(l.to);
+              return (
+                <Link
+                  key={l.to}
+                  to={l.to}
+                  onClick={() => setOpen(false)}
+                  className={`font-display text-[22px] px-4 py-3 rounded-lg transition-all ${
+                    active
+                      ? "bg-saffron/20 text-saffron-light border-l-4 border-saffron pl-3"
+                      : "text-cream hover:bg-white/10 hover:text-saffron-light"
+                  }`}
+                >
+                  {l.label}
+                </Link>
+              );
+            })}
           </nav>
           <div className="px-6 pb-10 space-y-3" style={{ paddingBottom: "calc(2.5rem + env(safe-area-inset-bottom, 0px))" }}>
             <Link

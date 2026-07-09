@@ -128,8 +128,8 @@ const ALL_STEPS: { id: StepId; label: string; fields: (keyof FormValues)[] }[] =
 function buildSteps(isAskQuestion: boolean) {
   return ALL_STEPS.filter((s) => {
     if (isAskQuestion) {
-      // For Ask a Question: show seedNumber, hide dateOfBirth
-      return s.id !== "dateOfBirth";
+      // For Ask a Question: show seedNumber, hide dateOfBirth and birthTime
+      return s.id !== "dateOfBirth" && s.id !== "birthTime";
     } else {
       // For all other services: hide seedNumber
       return s.id !== "seedNumber";
@@ -606,17 +606,19 @@ function CheckoutPage() {
                         onEdit={() => jumpTo("seedNumber")}
                       />
                     ) : (
-                      <ReviewRow
-                        label="Date of birth"
-                        value={dob || "—"}
-                        onEdit={() => jumpTo("dateOfBirth")}
-                      />
+                      <>
+                        <ReviewRow
+                          label="Date of birth"
+                          value={dob || "—"}
+                          onEdit={() => jumpTo("dateOfBirth")}
+                        />
+                        <ReviewRow
+                          label="Time of birth"
+                          value={time || "—"}
+                          onEdit={() => jumpTo("birthTime")}
+                        />
+                      </>
                     )}
-                    <ReviewRow
-                      label="Time of birth"
-                      value={time || "—"}
-                      onEdit={() => jumpTo("birthTime")}
-                    />
                     <ReviewRow
                       label="Place of birth"
                       value={place || "—"}
@@ -654,10 +656,8 @@ function CheckoutPage() {
                       {isAskQuestion ? (
                         <span className="text-sm text-text-body leading-relaxed group-hover:text-indigo-deep select-none">
                           I confirm that my seed number (
-                          <strong className="text-indigo-deep">{seedNumber ?? "not entered yet"}</strong>),
-                          birth time (
-                          <strong className="text-indigo-deep">{time || "not entered yet"}</strong>),
-                          and place (
+                          <strong className="text-indigo-deep">{seedNumber ?? "not entered yet"}</strong>)
+                          and place of birth (
                           <strong className="text-indigo-deep">{place || "not entered yet"}</strong>)
                           are correct.
                         </span>

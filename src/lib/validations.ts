@@ -38,7 +38,8 @@ export const bookingFormSchema = z.object({
   phone: z.string().regex(/^\d{10}$/, "Enter a 10-digit phone number."),
   // dateOfBirth is not required for the "Ask a Question" service (which uses seedNumber instead)
   dateOfBirth: z.string().optional().or(z.literal("")),
-  birthTime: z.string().min(1, "Birth time is required."),
+  // birthTime is not required for the "Ask a Question" service (which skips that step)
+  birthTime: z.string().optional().or(z.literal("")),
   birthPlace: z
     .string()
     .min(3, "Birth place must be at least 3 characters.")
