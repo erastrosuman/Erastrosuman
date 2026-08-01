@@ -100,7 +100,7 @@ function CashfreeCallbackPage() {
 
         if (
           result.success &&
-          (result.paymentStatus === "success" || result.alreadyProcessed)
+          result.paymentStatus === "success"
         ) {
           navigate({
             to: "/order-success",

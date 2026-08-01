@@ -136,7 +136,7 @@ export const createCashfreeOrder = createServerFn({ method: "POST" })
       orderAmount: amount,
       orderCurrency: "INR",
       customerDetails: {
-        customerId: orders[0].booking_id,
+        customerId: orders[0].booking_id.replace(/-/g, ""),
         customerEmail: primary.customer_email,
         customerPhone: primary.customer_phone,
         customerName: primary.customer_name,

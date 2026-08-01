@@ -46,8 +46,8 @@ export type BookingRow = {
   customer_name: string;
   customer_email: string;
   customer_phone: string;
-  date_of_birth: string;
-  birth_time: string;
+  date_of_birth: string | null;
+  birth_time: string | null;
   birth_place: string;
   question: string | null;
   status: BookingStatus;
@@ -64,7 +64,7 @@ export type OrderRow = {
   gateway: string;
   gateway_txn_id: string | null;
   gateway_payment_id: string | null;
-  hash: string | null;
+
   amount: number;
   status: OrderStatus;
   raw_request: Record<string, unknown> | null;
@@ -228,8 +228,8 @@ export interface Database {
           customer_name: string;
           customer_email: string;
           customer_phone: string;
-          date_of_birth: string;
-          birth_time: string;
+          date_of_birth?: string | null;
+          birth_time?: string | null;
           birth_place: string;
           question?: string | null;
           status?: BookingStatus;
@@ -246,8 +246,8 @@ export interface Database {
           customer_name?: string;
           customer_email?: string;
           customer_phone?: string;
-          date_of_birth?: string;
-          birth_time?: string;
+          date_of_birth?: string | null;
+          birth_time?: string | null;
           birth_place?: string;
           question?: string | null;
           status?: BookingStatus;
@@ -275,7 +275,7 @@ export interface Database {
           gateway?: string;
           gateway_txn_id?: string | null;
           gateway_payment_id?: string | null;
-          hash?: string | null;
+
           amount?: number;
           status?: OrderStatus;
           raw_request?: Record<string, unknown> | null;
@@ -289,7 +289,7 @@ export interface Database {
           gateway?: string;
           gateway_txn_id?: string | null;
           gateway_payment_id?: string | null;
-          hash?: string | null;
+
           amount?: number;
           status?: OrderStatus;
           raw_request?: Record<string, unknown> | null;

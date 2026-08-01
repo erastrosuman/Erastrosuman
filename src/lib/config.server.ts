@@ -31,7 +31,7 @@ export function getServerConfig() {
   const resendApiKey = process.env.RESEND_API_KEY || import.meta.env.RESEND_API_KEY || "";
 
   // App
-  const appUrl = process.env.APP_URL || import.meta.env.APP_URL || "";
+  const appUrl = (process.env.APP_URL || import.meta.env.APP_URL || "").replace(/\/+$/, "");
   const adminEmail = process.env.ADMIN_EMAIL || import.meta.env.ADMIN_EMAIL || "";
   const supportEmail = process.env.SUPPORT_EMAIL || import.meta.env.SUPPORT_EMAIL || "";
 

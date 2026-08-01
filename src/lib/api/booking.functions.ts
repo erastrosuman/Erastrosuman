@@ -114,8 +114,8 @@ export const createBooking = createServerFn({ method: "POST" })
             customer_name: data.name,
             customer_email: data.email,
             customer_phone: data.phone,
-            date_of_birth: data.dateOfBirth || "",
-            birth_time: data.birthTime,
+            date_of_birth: data.dateOfBirth || null,
+            birth_time: data.birthTime || null,
             birth_place: data.birthPlace,
             // For "Ask a Question": prepend the seed number to the question
             question:
