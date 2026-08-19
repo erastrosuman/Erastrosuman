@@ -15,13 +15,15 @@ export interface CashfreeConfig {
 }
 
 export function getCashfreeConfig(): CashfreeConfig {
-  const appId =
-    process.env.CASHFREE_APP_ID || import.meta.env.CASHFREE_APP_ID;
-  const secretKey =
-    process.env.CASHFREE_SECRET_KEY || import.meta.env.CASHFREE_SECRET_KEY;
-  const mode = (process.env.CASHFREE_MODE ||
+  const appId = (
+    process.env.CASHFREE_APP_ID || import.meta.env.CASHFREE_APP_ID || ""
+  ).trim();
+  const secretKey = (
+    process.env.CASHFREE_SECRET_KEY || import.meta.env.CASHFREE_SECRET_KEY || ""
+  ).trim();
+  const mode = ((process.env.CASHFREE_MODE ||
     import.meta.env.CASHFREE_MODE ||
-    "sandbox") as "sandbox" | "production";
+    "sandbox") as string).trim() as "sandbox" | "production";
 
   if (!appId || !secretKey) {
     const missing: string[] = [];
@@ -33,6 +35,11 @@ export function getCashfreeConfig(): CashfreeConfig {
         "Without these, payment creation will fail.",
     );
   }
+
+  // Diagnostic log (partial key only — never log the full secret)
+  console.log(
+    `[cashfree] Config loaded — mode=${mode}, appId=${appId.slice(0, 8)}…, secretKey=${secretKey.slice(0, 12)}…`,
+  );
 
   return { appId, secretKey, mode };
 }
@@ -50,7 +57,7 @@ export function getCashfreeBaseUrl(mode: "sandbox" | "production"): string {
 
 // ─── API Version ────────────────────────────────────────────
 
-const CF_API_VERSION = "2025-01-01";
+const CF_API_VERSION = "2026-01-01";
 
 // ─── Create Order ───────────────────────────────────────────
 

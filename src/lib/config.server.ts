@@ -19,21 +19,21 @@ export function getServerConfig() {
   const isProduction = nodeEnv === "production";
 
   // Supabase
-  const supabaseUrl = process.env.VITE_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL || "";
-  const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || import.meta.env.SUPABASE_SERVICE_ROLE_KEY || "";
+  const supabaseUrl = (process.env.VITE_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL || "").trim();
+  const supabaseServiceRoleKey = (process.env.SUPABASE_SERVICE_ROLE_KEY || import.meta.env.SUPABASE_SERVICE_ROLE_KEY || "").trim();
 
   // Cashfree Payment Gateway
-  const cashfreeAppId = process.env.CASHFREE_APP_ID || import.meta.env.CASHFREE_APP_ID || "";
-  const cashfreeSecretKey = process.env.CASHFREE_SECRET_KEY || import.meta.env.CASHFREE_SECRET_KEY || "";
-  const cashfreeMode = (process.env.CASHFREE_MODE || import.meta.env.CASHFREE_MODE || "sandbox") as "sandbox" | "production";
+  const cashfreeAppId = (process.env.CASHFREE_APP_ID || import.meta.env.CASHFREE_APP_ID || "").trim();
+  const cashfreeSecretKey = (process.env.CASHFREE_SECRET_KEY || import.meta.env.CASHFREE_SECRET_KEY || "").trim();
+  const cashfreeMode = ((process.env.CASHFREE_MODE || import.meta.env.CASHFREE_MODE || "sandbox") as string).trim() as "sandbox" | "production";
 
   // Email (Resend)
-  const resendApiKey = process.env.RESEND_API_KEY || import.meta.env.RESEND_API_KEY || "";
+  const resendApiKey = (process.env.RESEND_API_KEY || import.meta.env.RESEND_API_KEY || "").trim();
 
   // App
-  const appUrl = (process.env.APP_URL || import.meta.env.APP_URL || "").replace(/\/+$/, "");
-  const adminEmail = process.env.ADMIN_EMAIL || import.meta.env.ADMIN_EMAIL || "";
-  const supportEmail = process.env.SUPPORT_EMAIL || import.meta.env.SUPPORT_EMAIL || "";
+  const appUrl = (process.env.APP_URL || import.meta.env.APP_URL || "").trim().replace(/\/+$/, "");
+  const adminEmail = (process.env.ADMIN_EMAIL || import.meta.env.ADMIN_EMAIL || "").trim();
+  const supportEmail = (process.env.SUPPORT_EMAIL || import.meta.env.SUPPORT_EMAIL || "").trim();
 
   // Validate critical config in production
   const errors: string[] = [];
