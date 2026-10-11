@@ -16,6 +16,8 @@ import { Route as RefundRouteImport } from './routes/refund'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as OrderSuccessRouteImport } from './routes/order-success'
 import { Route as OrderFailureRouteImport } from './routes/order-failure'
+import { Route as FreeAstrologyRouteImport } from './routes/free-astrology'
+import { Route as DevotionalRouteImport } from './routes/devotional'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as BlogRouteImport } from './routes/blog'
@@ -24,6 +26,14 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
+import { Route as FreeAstrologyVedicCardRouteImport } from './routes/free-astrology.vedic-card'
+import { Route as FreeAstrologyRashifalRouteImport } from './routes/free-astrology.rashifal'
+import { Route as FreeAstrologyRamShalakaRouteImport } from './routes/free-astrology.ram-shalaka'
+import { Route as FreeAstrologyNumerologyRouteImport } from './routes/free-astrology.numerology'
+import { Route as FreeAstrologyKundliRouteImport } from './routes/free-astrology.kundli'
+import { Route as DevotionalStotramRouteImport } from './routes/devotional.stotram'
+import { Route as DevotionalMantraRouteImport } from './routes/devotional.mantra'
+import { Route as DevotionalAartiRouteImport } from './routes/devotional.aarti'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ApiCashfreeCallbackRouteImport } from './routes/api/cashfree-callback'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
@@ -70,6 +80,16 @@ const OrderFailureRoute = OrderFailureRouteImport.update({
   path: '/order-failure',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FreeAstrologyRoute = FreeAstrologyRouteImport.update({
+  id: '/free-astrology',
+  path: '/free-astrology',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DevotionalRoute = DevotionalRouteImport.update({
+  id: '/devotional',
+  path: '/devotional',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -109,6 +129,46 @@ const ServicesSlugRoute = ServicesSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => ServicesRoute,
+} as any)
+const FreeAstrologyVedicCardRoute = FreeAstrologyVedicCardRouteImport.update({
+  id: '/vedic-card',
+  path: '/vedic-card',
+  getParentRoute: () => FreeAstrologyRoute,
+} as any)
+const FreeAstrologyRashifalRoute = FreeAstrologyRashifalRouteImport.update({
+  id: '/rashifal',
+  path: '/rashifal',
+  getParentRoute: () => FreeAstrologyRoute,
+} as any)
+const FreeAstrologyRamShalakaRoute = FreeAstrologyRamShalakaRouteImport.update({
+  id: '/ram-shalaka',
+  path: '/ram-shalaka',
+  getParentRoute: () => FreeAstrologyRoute,
+} as any)
+const FreeAstrologyNumerologyRoute = FreeAstrologyNumerologyRouteImport.update({
+  id: '/numerology',
+  path: '/numerology',
+  getParentRoute: () => FreeAstrologyRoute,
+} as any)
+const FreeAstrologyKundliRoute = FreeAstrologyKundliRouteImport.update({
+  id: '/kundli',
+  path: '/kundli',
+  getParentRoute: () => FreeAstrologyRoute,
+} as any)
+const DevotionalStotramRoute = DevotionalStotramRouteImport.update({
+  id: '/stotram',
+  path: '/stotram',
+  getParentRoute: () => DevotionalRoute,
+} as any)
+const DevotionalMantraRoute = DevotionalMantraRouteImport.update({
+  id: '/mantra',
+  path: '/mantra',
+  getParentRoute: () => DevotionalRoute,
+} as any)
+const DevotionalAartiRoute = DevotionalAartiRouteImport.update({
+  id: '/aarti',
+  path: '/aarti',
+  getParentRoute: () => DevotionalRoute,
 } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
@@ -168,6 +228,8 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRouteWithChildren
   '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
+  '/devotional': typeof DevotionalRouteWithChildren
+  '/free-astrology': typeof FreeAstrologyRouteWithChildren
   '/order-failure': typeof OrderFailureRoute
   '/order-success': typeof OrderSuccessRoute
   '/privacy': typeof PrivacyRoute
@@ -183,6 +245,14 @@ export interface FileRoutesByFullPath {
   '/admin/settings': typeof AdminSettingsRoute
   '/api/cashfree-callback': typeof ApiCashfreeCallbackRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/devotional/aarti': typeof DevotionalAartiRoute
+  '/devotional/mantra': typeof DevotionalMantraRoute
+  '/devotional/stotram': typeof DevotionalStotramRoute
+  '/free-astrology/kundli': typeof FreeAstrologyKundliRoute
+  '/free-astrology/numerology': typeof FreeAstrologyNumerologyRoute
+  '/free-astrology/ram-shalaka': typeof FreeAstrologyRamShalakaRoute
+  '/free-astrology/rashifal': typeof FreeAstrologyRashifalRoute
+  '/free-astrology/vedic-card': typeof FreeAstrologyVedicCardRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/admin/blog/$id': typeof AdminBlogIdRoute
@@ -194,6 +264,8 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogRouteWithChildren
   '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
+  '/devotional': typeof DevotionalRouteWithChildren
+  '/free-astrology': typeof FreeAstrologyRouteWithChildren
   '/order-failure': typeof OrderFailureRoute
   '/order-success': typeof OrderSuccessRoute
   '/privacy': typeof PrivacyRoute
@@ -209,6 +281,14 @@ export interface FileRoutesByTo {
   '/admin/settings': typeof AdminSettingsRoute
   '/api/cashfree-callback': typeof ApiCashfreeCallbackRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/devotional/aarti': typeof DevotionalAartiRoute
+  '/devotional/mantra': typeof DevotionalMantraRoute
+  '/devotional/stotram': typeof DevotionalStotramRoute
+  '/free-astrology/kundli': typeof FreeAstrologyKundliRoute
+  '/free-astrology/numerology': typeof FreeAstrologyNumerologyRoute
+  '/free-astrology/ram-shalaka': typeof FreeAstrologyRamShalakaRoute
+  '/free-astrology/rashifal': typeof FreeAstrologyRashifalRoute
+  '/free-astrology/vedic-card': typeof FreeAstrologyVedicCardRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/admin': typeof AdminIndexRoute
   '/admin/blog/$id': typeof AdminBlogIdRoute
@@ -222,6 +302,8 @@ export interface FileRoutesById {
   '/blog': typeof BlogRouteWithChildren
   '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
+  '/devotional': typeof DevotionalRouteWithChildren
+  '/free-astrology': typeof FreeAstrologyRouteWithChildren
   '/order-failure': typeof OrderFailureRoute
   '/order-success': typeof OrderSuccessRoute
   '/privacy': typeof PrivacyRoute
@@ -237,6 +319,14 @@ export interface FileRoutesById {
   '/admin/settings': typeof AdminSettingsRoute
   '/api/cashfree-callback': typeof ApiCashfreeCallbackRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/devotional/aarti': typeof DevotionalAartiRoute
+  '/devotional/mantra': typeof DevotionalMantraRoute
+  '/devotional/stotram': typeof DevotionalStotramRoute
+  '/free-astrology/kundli': typeof FreeAstrologyKundliRoute
+  '/free-astrology/numerology': typeof FreeAstrologyNumerologyRoute
+  '/free-astrology/ram-shalaka': typeof FreeAstrologyRamShalakaRoute
+  '/free-astrology/rashifal': typeof FreeAstrologyRashifalRoute
+  '/free-astrology/vedic-card': typeof FreeAstrologyVedicCardRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/admin/blog/$id': typeof AdminBlogIdRoute
@@ -251,6 +341,8 @@ export interface FileRouteTypes {
     | '/blog'
     | '/checkout'
     | '/contact'
+    | '/devotional'
+    | '/free-astrology'
     | '/order-failure'
     | '/order-success'
     | '/privacy'
@@ -266,6 +358,14 @@ export interface FileRouteTypes {
     | '/admin/settings'
     | '/api/cashfree-callback'
     | '/blog/$slug'
+    | '/devotional/aarti'
+    | '/devotional/mantra'
+    | '/devotional/stotram'
+    | '/free-astrology/kundli'
+    | '/free-astrology/numerology'
+    | '/free-astrology/ram-shalaka'
+    | '/free-astrology/rashifal'
+    | '/free-astrology/vedic-card'
     | '/services/$slug'
     | '/admin/'
     | '/admin/blog/$id'
@@ -277,6 +377,8 @@ export interface FileRouteTypes {
     | '/blog'
     | '/checkout'
     | '/contact'
+    | '/devotional'
+    | '/free-astrology'
     | '/order-failure'
     | '/order-success'
     | '/privacy'
@@ -292,6 +394,14 @@ export interface FileRouteTypes {
     | '/admin/settings'
     | '/api/cashfree-callback'
     | '/blog/$slug'
+    | '/devotional/aarti'
+    | '/devotional/mantra'
+    | '/devotional/stotram'
+    | '/free-astrology/kundli'
+    | '/free-astrology/numerology'
+    | '/free-astrology/ram-shalaka'
+    | '/free-astrology/rashifal'
+    | '/free-astrology/vedic-card'
     | '/services/$slug'
     | '/admin'
     | '/admin/blog/$id'
@@ -304,6 +414,8 @@ export interface FileRouteTypes {
     | '/blog'
     | '/checkout'
     | '/contact'
+    | '/devotional'
+    | '/free-astrology'
     | '/order-failure'
     | '/order-success'
     | '/privacy'
@@ -319,6 +431,14 @@ export interface FileRouteTypes {
     | '/admin/settings'
     | '/api/cashfree-callback'
     | '/blog/$slug'
+    | '/devotional/aarti'
+    | '/devotional/mantra'
+    | '/devotional/stotram'
+    | '/free-astrology/kundli'
+    | '/free-astrology/numerology'
+    | '/free-astrology/ram-shalaka'
+    | '/free-astrology/rashifal'
+    | '/free-astrology/vedic-card'
     | '/services/$slug'
     | '/admin/'
     | '/admin/blog/$id'
@@ -332,6 +452,8 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRouteWithChildren
   CheckoutRoute: typeof CheckoutRoute
   ContactRoute: typeof ContactRoute
+  DevotionalRoute: typeof DevotionalRouteWithChildren
+  FreeAstrologyRoute: typeof FreeAstrologyRouteWithChildren
   OrderFailureRoute: typeof OrderFailureRoute
   OrderSuccessRoute: typeof OrderSuccessRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -393,6 +515,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OrderFailureRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/free-astrology': {
+      id: '/free-astrology'
+      path: '/free-astrology'
+      fullPath: '/free-astrology'
+      preLoaderRoute: typeof FreeAstrologyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/devotional': {
+      id: '/devotional'
+      path: '/devotional'
+      fullPath: '/devotional'
+      preLoaderRoute: typeof DevotionalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -448,6 +584,62 @@ declare module '@tanstack/react-router' {
       fullPath: '/services/$slug'
       preLoaderRoute: typeof ServicesSlugRouteImport
       parentRoute: typeof ServicesRoute
+    }
+    '/free-astrology/vedic-card': {
+      id: '/free-astrology/vedic-card'
+      path: '/vedic-card'
+      fullPath: '/free-astrology/vedic-card'
+      preLoaderRoute: typeof FreeAstrologyVedicCardRouteImport
+      parentRoute: typeof FreeAstrologyRoute
+    }
+    '/free-astrology/rashifal': {
+      id: '/free-astrology/rashifal'
+      path: '/rashifal'
+      fullPath: '/free-astrology/rashifal'
+      preLoaderRoute: typeof FreeAstrologyRashifalRouteImport
+      parentRoute: typeof FreeAstrologyRoute
+    }
+    '/free-astrology/ram-shalaka': {
+      id: '/free-astrology/ram-shalaka'
+      path: '/ram-shalaka'
+      fullPath: '/free-astrology/ram-shalaka'
+      preLoaderRoute: typeof FreeAstrologyRamShalakaRouteImport
+      parentRoute: typeof FreeAstrologyRoute
+    }
+    '/free-astrology/numerology': {
+      id: '/free-astrology/numerology'
+      path: '/numerology'
+      fullPath: '/free-astrology/numerology'
+      preLoaderRoute: typeof FreeAstrologyNumerologyRouteImport
+      parentRoute: typeof FreeAstrologyRoute
+    }
+    '/free-astrology/kundli': {
+      id: '/free-astrology/kundli'
+      path: '/kundli'
+      fullPath: '/free-astrology/kundli'
+      preLoaderRoute: typeof FreeAstrologyKundliRouteImport
+      parentRoute: typeof FreeAstrologyRoute
+    }
+    '/devotional/stotram': {
+      id: '/devotional/stotram'
+      path: '/stotram'
+      fullPath: '/devotional/stotram'
+      preLoaderRoute: typeof DevotionalStotramRouteImport
+      parentRoute: typeof DevotionalRoute
+    }
+    '/devotional/mantra': {
+      id: '/devotional/mantra'
+      path: '/mantra'
+      fullPath: '/devotional/mantra'
+      preLoaderRoute: typeof DevotionalMantraRouteImport
+      parentRoute: typeof DevotionalRoute
+    }
+    '/devotional/aarti': {
+      id: '/devotional/aarti'
+      path: '/aarti'
+      fullPath: '/devotional/aarti'
+      preLoaderRoute: typeof DevotionalAartiRouteImport
+      parentRoute: typeof DevotionalRoute
     }
     '/blog/$slug': {
       id: '/blog/$slug'
@@ -578,6 +770,42 @@ const BlogRouteChildren: BlogRouteChildren = {
 
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
+interface DevotionalRouteChildren {
+  DevotionalAartiRoute: typeof DevotionalAartiRoute
+  DevotionalMantraRoute: typeof DevotionalMantraRoute
+  DevotionalStotramRoute: typeof DevotionalStotramRoute
+}
+
+const DevotionalRouteChildren: DevotionalRouteChildren = {
+  DevotionalAartiRoute: DevotionalAartiRoute,
+  DevotionalMantraRoute: DevotionalMantraRoute,
+  DevotionalStotramRoute: DevotionalStotramRoute,
+}
+
+const DevotionalRouteWithChildren = DevotionalRoute._addFileChildren(
+  DevotionalRouteChildren,
+)
+
+interface FreeAstrologyRouteChildren {
+  FreeAstrologyKundliRoute: typeof FreeAstrologyKundliRoute
+  FreeAstrologyNumerologyRoute: typeof FreeAstrologyNumerologyRoute
+  FreeAstrologyRamShalakaRoute: typeof FreeAstrologyRamShalakaRoute
+  FreeAstrologyRashifalRoute: typeof FreeAstrologyRashifalRoute
+  FreeAstrologyVedicCardRoute: typeof FreeAstrologyVedicCardRoute
+}
+
+const FreeAstrologyRouteChildren: FreeAstrologyRouteChildren = {
+  FreeAstrologyKundliRoute: FreeAstrologyKundliRoute,
+  FreeAstrologyNumerologyRoute: FreeAstrologyNumerologyRoute,
+  FreeAstrologyRamShalakaRoute: FreeAstrologyRamShalakaRoute,
+  FreeAstrologyRashifalRoute: FreeAstrologyRashifalRoute,
+  FreeAstrologyVedicCardRoute: FreeAstrologyVedicCardRoute,
+}
+
+const FreeAstrologyRouteWithChildren = FreeAstrologyRoute._addFileChildren(
+  FreeAstrologyRouteChildren,
+)
+
 interface ServicesRouteChildren {
   ServicesSlugRoute: typeof ServicesSlugRoute
 }
@@ -597,6 +825,8 @@ const rootRouteChildren: RootRouteChildren = {
   BlogRoute: BlogRouteWithChildren,
   CheckoutRoute: CheckoutRoute,
   ContactRoute: ContactRoute,
+  DevotionalRoute: DevotionalRouteWithChildren,
+  FreeAstrologyRoute: FreeAstrologyRouteWithChildren,
   OrderFailureRoute: OrderFailureRoute,
   OrderSuccessRoute: OrderSuccessRoute,
   PrivacyRoute: PrivacyRoute,

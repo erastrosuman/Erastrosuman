@@ -4,7 +4,7 @@ import { Phone, Mail, MessageCircle } from "lucide-react";
 export function Footer() {
   return (
     <footer className="bg-indigo-deep text-cream/85 mt-16">
-      <div className="mx-auto max-w-7xl px-6 py-16 grid gap-12 md:grid-cols-5">
+      <div className="mx-auto max-w-7xl px-6 py-16 grid gap-10 md:grid-cols-5">
         <div className="md:col-span-2">
           <div className="font-display text-2xl text-cream">
             SudnadiAstro <span className="text-saffron">✦</span>
@@ -30,33 +30,43 @@ export function Footer() {
             </a>
           </div>
         </div>
+
         <div>
-          <h3 className="text-cream text-sm font-semibold tracking-widest uppercase mb-4">Explore</h3>
+          <h3 className="text-cream text-sm font-semibold tracking-widest uppercase mb-4">Free Astrology</h3>
+          <ul className="space-y-2.5 text-sm">
+            <li><Link to="/free-astrology" className="hover:text-saffron font-medium">All Free Tools</Link></li>
+            <li><Link to="/free-astrology/rashifal" className="hover:text-saffron">दैनिक राशिफल</Link></li>
+            <li><Link to="/free-astrology/kundli" className="hover:text-saffron">फ्री जन्म कुंडली</Link></li>
+            <li><Link to="/free-astrology/numerology" className="hover:text-saffron">वैदिक न्यूमरोलॉजी</Link></li>
+            <li><Link to="/free-astrology/ram-shalaka" className="hover:text-saffron">राम शलाका</Link></li>
+            <li><Link to="/free-astrology/vedic-card" className="hover:text-saffron">वैदिक कार्ड</Link></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 className="text-cream text-sm font-semibold tracking-widest uppercase mb-4">Devotional</h3>
+          <ul className="space-y-2.5 text-sm">
+            <li><Link to="/devotional" className="hover:text-saffron font-medium">भक्ति पीठ (Hub)</Link></li>
+            <li><Link to="/devotional/aarti" className="hover:text-saffron">संपूर्ण आरती संग्रह</Link></li>
+            <li><Link to="/devotional/mantra" className="hover:text-saffron">नवग्रह एवं देव मंत्र</Link></li>
+            <li><Link to="/devotional/stotram" className="hover:text-saffron">वैदिक महास्तोत्र</Link></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 className="text-cream text-sm font-semibold tracking-widest uppercase mb-4">Explore & Legal</h3>
           <ul className="space-y-2.5 text-sm">
             <li><Link to="/services" className="hover:text-saffron">All Services</Link></li>
             <li><Link to="/about" className="hover:text-saffron">About Sudhansu</Link></li>
             <li><Link to="/blog" className="hover:text-saffron">Insights</Link></li>
             <li><Link to="/contact" className="hover:text-saffron">Contact</Link></li>
-          </ul>
-        </div>
-        <div>
-          <h3 className="text-cream text-sm font-semibold tracking-widest uppercase mb-4">Popular Readings</h3>
-          <ul className="space-y-2.5 text-sm">
-            <li><Link to="/services/$slug" params={{ slug: "kundli-report" }} className="hover:text-saffron">Kundli Report</Link></li>
-            <li><Link to="/services/$slug" params={{ slug: "career-report" }} className="hover:text-saffron">Career Report</Link></li>
-            <li><Link to="/services/$slug" params={{ slug: "love-marriage" }} className="hover:text-saffron">Love & Marriage</Link></li>
-            <li><Link to="/services/$slug" params={{ slug: "gemstone-report" }} className="hover:text-saffron">Gemstone Report</Link></li>
-          </ul>
-        </div>
-        <div>
-          <h3 className="text-cream text-sm font-semibold tracking-widest uppercase mb-4">Legal</h3>
-          <ul className="space-y-2.5 text-sm">
             <li><Link to="/terms" className="hover:text-saffron">Terms & Conditions</Link></li>
             <li><Link to="/privacy" className="hover:text-saffron">Privacy Policy</Link></li>
             <li><Link to="/refund" className="hover:text-saffron">Refund Policy</Link></li>
           </ul>
         </div>
       </div>
+
       <div className="border-t border-white/10">
         <div className="mx-auto max-w-7xl px-6 py-6 text-xs text-cream/50 flex flex-col md:flex-row gap-2 md:items-center md:justify-between">
           <span>© {new Date().getFullYear()} SudnadiAstro. Crafted with care in India.</span>

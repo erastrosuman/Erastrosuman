@@ -26,6 +26,7 @@ dist-ssr
 
 # Archives
 *.zip
+_zip_extracted/
 
 # Lock files (using npm)
 bun.lock

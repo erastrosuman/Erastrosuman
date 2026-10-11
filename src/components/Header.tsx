@@ -5,12 +5,11 @@ import { useState, useEffect } from "react";
 const navLinks = [
   { to: "/", label: "Home" },
   { to: "/services", label: "Services" },
+  { to: "/free-astrology", label: "Free Astrology" },
+  { to: "/devotional", label: "Devotional" },
   { to: "/about", label: "About" },
   { to: "/blog", label: "Insights" },
   { to: "/contact", label: "Contact" },
-  { to: "/terms", label: "Terms" },
-  { to: "/privacy", label: "Privacy" },
-  { to: "/refund", label: "Refunds" },
 ] as const;
 
 export function Header() {
