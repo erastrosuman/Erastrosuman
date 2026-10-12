@@ -9,105 +9,45 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TermsRouteImport } from './routes/terms'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as ServicesRouteImport } from './routes/services'
-import { Route as RefundRouteImport } from './routes/refund'
-import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as OrderSuccessRouteImport } from './routes/order-success'
-import { Route as OrderFailureRouteImport } from './routes/order-failure'
-import { Route as FreeAstrologyRouteImport } from './routes/free-astrology'
-import { Route as DevotionalRouteImport } from './routes/devotional'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as CheckoutRouteImport } from './routes/checkout'
-import { Route as BlogRouteImport } from './routes/blog'
-import { Route as AdminRouteImport } from './routes/admin'
-import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as BlogRouteImport } from './routes/blog'
+import { Route as CheckoutRouteImport } from './routes/checkout'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DevotionalRouteImport } from './routes/devotional'
+import { Route as FreeAstrologyRouteImport } from './routes/free-astrology'
+import { Route as OrderFailureRouteImport } from './routes/order-failure'
+import { Route as OrderSuccessRouteImport } from './routes/order-success'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as RefundRouteImport } from './routes/refund'
+import { Route as ServicesRouteImport } from './routes/services'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
-import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
-import { Route as FreeAstrologyVedicCardRouteImport } from './routes/free-astrology.vedic-card'
-import { Route as FreeAstrologyRashifalRouteImport } from './routes/free-astrology.rashifal'
-import { Route as FreeAstrologyRamShalakaRouteImport } from './routes/free-astrology.ram-shalaka'
-import { Route as FreeAstrologyNumerologyRouteImport } from './routes/free-astrology.numerology'
-import { Route as FreeAstrologyKundliRouteImport } from './routes/free-astrology.kundli'
-import { Route as DevotionalStotramRouteImport } from './routes/devotional.stotram'
-import { Route as DevotionalMantraRouteImport } from './routes/devotional.mantra'
-import { Route as DevotionalAartiRouteImport } from './routes/devotional.aarti'
-import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
-import { Route as ApiCashfreeCallbackRouteImport } from './routes/api/cashfree-callback'
-import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
-import { Route as AdminServicesRouteImport } from './routes/admin.services'
-import { Route as AdminMessagesRouteImport } from './routes/admin.messages'
-import { Route as AdminLoginRouteImport } from './routes/admin.login'
-import { Route as AdminBookingsRouteImport } from './routes/admin.bookings'
 import { Route as AdminBlogRouteImport } from './routes/admin.blog'
-import { Route as AdminServicesIdRouteImport } from './routes/admin.services.$id'
+import { Route as AdminBookingsRouteImport } from './routes/admin.bookings'
+import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as AdminMessagesRouteImport } from './routes/admin.messages'
+import { Route as AdminServicesRouteImport } from './routes/admin.services'
+import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
+import { Route as ApiCashfreeCallbackRouteImport } from './routes/api/cashfree-callback'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as DevotionalAartiRouteImport } from './routes/devotional.aarti'
+import { Route as DevotionalMantraRouteImport } from './routes/devotional.mantra'
+import { Route as DevotionalStotramRouteImport } from './routes/devotional.stotram'
+import { Route as FreeAstrologyKundliRouteImport } from './routes/free-astrology.kundli'
+import { Route as FreeAstrologyNumerologyRouteImport } from './routes/free-astrology.numerology'
+import { Route as FreeAstrologyRamShalakaRouteImport } from './routes/free-astrology.ram-shalaka'
+import { Route as FreeAstrologyRashifalRouteImport } from './routes/free-astrology.rashifal'
+import { Route as FreeAstrologyVedicCardRouteImport } from './routes/free-astrology.vedic-card'
+import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as AdminBlogIdRouteImport } from './routes/admin.blog.$id'
+import { Route as AdminServicesIdRouteImport } from './routes/admin.services.$id'
 
-const TermsRoute = TermsRouteImport.update({
-  id: '/terms',
-  path: '/terms',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ServicesRoute = ServicesRouteImport.update({
-  id: '/services',
-  path: '/services',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RefundRoute = RefundRouteImport.update({
-  id: '/refund',
-  path: '/refund',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivacyRoute = PrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OrderSuccessRoute = OrderSuccessRouteImport.update({
-  id: '/order-success',
-  path: '/order-success',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OrderFailureRoute = OrderFailureRouteImport.update({
-  id: '/order-failure',
-  path: '/order-failure',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FreeAstrologyRoute = FreeAstrologyRouteImport.update({
-  id: '/free-astrology',
-  path: '/free-astrology',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DevotionalRoute = DevotionalRouteImport.update({
-  id: '/devotional',
-  path: '/devotional',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CheckoutRoute = CheckoutRouteImport.update({
-  id: '/checkout',
-  path: '/checkout',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BlogRoute = BlogRouteImport.update({
-  id: '/blog',
-  path: '/blog',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminRoute = AdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -115,9 +55,69 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckoutRoute = CheckoutRouteImport.update({
+  id: '/checkout',
+  path: '/checkout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DevotionalRoute = DevotionalRouteImport.update({
+  id: '/devotional',
+  path: '/devotional',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FreeAstrologyRoute = FreeAstrologyRouteImport.update({
+  id: '/free-astrology',
+  path: '/free-astrology',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrderFailureRoute = OrderFailureRouteImport.update({
+  id: '/order-failure',
+  path: '/order-failure',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrderSuccessRoute = OrderSuccessRouteImport.update({
+  id: '/order-success',
+  path: '/order-success',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RefundRoute = RefundRouteImport.update({
+  id: '/refund',
+  path: '/refund',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
@@ -125,79 +125,9 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
-const ServicesSlugRoute = ServicesSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => ServicesRoute,
-} as any)
-const FreeAstrologyVedicCardRoute = FreeAstrologyVedicCardRouteImport.update({
-  id: '/vedic-card',
-  path: '/vedic-card',
-  getParentRoute: () => FreeAstrologyRoute,
-} as any)
-const FreeAstrologyRashifalRoute = FreeAstrologyRashifalRouteImport.update({
-  id: '/rashifal',
-  path: '/rashifal',
-  getParentRoute: () => FreeAstrologyRoute,
-} as any)
-const FreeAstrologyRamShalakaRoute = FreeAstrologyRamShalakaRouteImport.update({
-  id: '/ram-shalaka',
-  path: '/ram-shalaka',
-  getParentRoute: () => FreeAstrologyRoute,
-} as any)
-const FreeAstrologyNumerologyRoute = FreeAstrologyNumerologyRouteImport.update({
-  id: '/numerology',
-  path: '/numerology',
-  getParentRoute: () => FreeAstrologyRoute,
-} as any)
-const FreeAstrologyKundliRoute = FreeAstrologyKundliRouteImport.update({
-  id: '/kundli',
-  path: '/kundli',
-  getParentRoute: () => FreeAstrologyRoute,
-} as any)
-const DevotionalStotramRoute = DevotionalStotramRouteImport.update({
-  id: '/stotram',
-  path: '/stotram',
-  getParentRoute: () => DevotionalRoute,
-} as any)
-const DevotionalMantraRoute = DevotionalMantraRouteImport.update({
-  id: '/mantra',
-  path: '/mantra',
-  getParentRoute: () => DevotionalRoute,
-} as any)
-const DevotionalAartiRoute = DevotionalAartiRouteImport.update({
-  id: '/aarti',
-  path: '/aarti',
-  getParentRoute: () => DevotionalRoute,
-} as any)
-const BlogSlugRoute = BlogSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => BlogRoute,
-} as any)
-const ApiCashfreeCallbackRoute = ApiCashfreeCallbackRouteImport.update({
-  id: '/api/cashfree-callback',
-  path: '/api/cashfree-callback',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminSettingsRoute = AdminSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminServicesRoute = AdminServicesRouteImport.update({
-  id: '/services',
-  path: '/services',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminMessagesRoute = AdminMessagesRouteImport.update({
-  id: '/messages',
-  path: '/messages',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminLoginRoute = AdminLoginRouteImport.update({
-  id: '/login',
-  path: '/login',
+const AdminBlogRoute = AdminBlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminBookingsRoute = AdminBookingsRouteImport.update({
@@ -205,20 +135,90 @@ const AdminBookingsRoute = AdminBookingsRouteImport.update({
   path: '/bookings',
   getParentRoute: () => AdminRoute,
 } as any)
-const AdminBlogRoute = AdminBlogRouteImport.update({
-  id: '/blog',
-  path: '/blog',
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => AdminRoute,
 } as any)
-const AdminServicesIdRoute = AdminServicesIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => AdminServicesRoute,
+const AdminMessagesRoute = AdminMessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminServicesRoute = AdminServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminRoute,
+} as any)
+const ApiCashfreeCallbackRoute = ApiCashfreeCallbackRouteImport.update({
+  id: '/api/cashfree-callback',
+  path: '/api/cashfree-callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => BlogRoute,
+} as any)
+const DevotionalAartiRoute = DevotionalAartiRouteImport.update({
+  id: '/aarti',
+  path: '/aarti',
+  getParentRoute: () => DevotionalRoute,
+} as any)
+const DevotionalMantraRoute = DevotionalMantraRouteImport.update({
+  id: '/mantra',
+  path: '/mantra',
+  getParentRoute: () => DevotionalRoute,
+} as any)
+const DevotionalStotramRoute = DevotionalStotramRouteImport.update({
+  id: '/stotram',
+  path: '/stotram',
+  getParentRoute: () => DevotionalRoute,
+} as any)
+const FreeAstrologyKundliRoute = FreeAstrologyKundliRouteImport.update({
+  id: '/kundli',
+  path: '/kundli',
+  getParentRoute: () => FreeAstrologyRoute,
+} as any)
+const FreeAstrologyNumerologyRoute = FreeAstrologyNumerologyRouteImport.update({
+  id: '/numerology',
+  path: '/numerology',
+  getParentRoute: () => FreeAstrologyRoute,
+} as any)
+const FreeAstrologyRamShalakaRoute = FreeAstrologyRamShalakaRouteImport.update({
+  id: '/ram-shalaka',
+  path: '/ram-shalaka',
+  getParentRoute: () => FreeAstrologyRoute,
+} as any)
+const FreeAstrologyRashifalRoute = FreeAstrologyRashifalRouteImport.update({
+  id: '/rashifal',
+  path: '/rashifal',
+  getParentRoute: () => FreeAstrologyRoute,
+} as any)
+const FreeAstrologyVedicCardRoute = FreeAstrologyVedicCardRouteImport.update({
+  id: '/vedic-card',
+  path: '/vedic-card',
+  getParentRoute: () => FreeAstrologyRoute,
+} as any)
+const ServicesSlugRoute = ServicesSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ServicesRoute,
 } as any)
 const AdminBlogIdRoute = AdminBlogIdRouteImport.update({
   id: '/$id',
   path: '/$id',
   getParentRoute: () => AdminBlogRoute,
+} as any)
+const AdminServicesIdRoute = AdminServicesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AdminServicesRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -466,95 +466,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/terms': {
-      id: '/terms'
-      path: '/terms'
-      fullPath: '/terms'
-      preLoaderRoute: typeof TermsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/services': {
-      id: '/services'
-      path: '/services'
-      fullPath: '/services'
-      preLoaderRoute: typeof ServicesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/refund': {
-      id: '/refund'
-      path: '/refund'
-      fullPath: '/refund'
-      preLoaderRoute: typeof RefundRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/privacy': {
-      id: '/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/order-success': {
-      id: '/order-success'
-      path: '/order-success'
-      fullPath: '/order-success'
-      preLoaderRoute: typeof OrderSuccessRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/order-failure': {
-      id: '/order-failure'
-      path: '/order-failure'
-      fullPath: '/order-failure'
-      preLoaderRoute: typeof OrderFailureRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/free-astrology': {
-      id: '/free-astrology'
-      path: '/free-astrology'
-      fullPath: '/free-astrology'
-      preLoaderRoute: typeof FreeAstrologyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/devotional': {
-      id: '/devotional'
-      path: '/devotional'
-      fullPath: '/devotional'
-      preLoaderRoute: typeof DevotionalRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/checkout': {
-      id: '/checkout'
-      path: '/checkout'
-      fullPath: '/checkout'
-      preLoaderRoute: typeof CheckoutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog': {
-      id: '/blog'
-      path: '/blog'
-      fullPath: '/blog'
-      preLoaderRoute: typeof BlogRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -564,11 +480,95 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checkout': {
+      id: '/checkout'
+      path: '/checkout'
+      fullPath: '/checkout'
+      preLoaderRoute: typeof CheckoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/devotional': {
+      id: '/devotional'
+      path: '/devotional'
+      fullPath: '/devotional'
+      preLoaderRoute: typeof DevotionalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/free-astrology': {
+      id: '/free-astrology'
+      path: '/free-astrology'
+      fullPath: '/free-astrology'
+      preLoaderRoute: typeof FreeAstrologyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/order-failure': {
+      id: '/order-failure'
+      path: '/order-failure'
+      fullPath: '/order-failure'
+      preLoaderRoute: typeof OrderFailureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/order-success': {
+      id: '/order-success'
+      path: '/order-success'
+      fullPath: '/order-success'
+      preLoaderRoute: typeof OrderSuccessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/refund': {
+      id: '/refund'
+      path: '/refund'
+      fullPath: '/refund'
+      preLoaderRoute: typeof RefundRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/': {
@@ -578,109 +578,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
-    '/services/$slug': {
-      id: '/services/$slug'
-      path: '/$slug'
-      fullPath: '/services/$slug'
-      preLoaderRoute: typeof ServicesSlugRouteImport
-      parentRoute: typeof ServicesRoute
-    }
-    '/free-astrology/vedic-card': {
-      id: '/free-astrology/vedic-card'
-      path: '/vedic-card'
-      fullPath: '/free-astrology/vedic-card'
-      preLoaderRoute: typeof FreeAstrologyVedicCardRouteImport
-      parentRoute: typeof FreeAstrologyRoute
-    }
-    '/free-astrology/rashifal': {
-      id: '/free-astrology/rashifal'
-      path: '/rashifal'
-      fullPath: '/free-astrology/rashifal'
-      preLoaderRoute: typeof FreeAstrologyRashifalRouteImport
-      parentRoute: typeof FreeAstrologyRoute
-    }
-    '/free-astrology/ram-shalaka': {
-      id: '/free-astrology/ram-shalaka'
-      path: '/ram-shalaka'
-      fullPath: '/free-astrology/ram-shalaka'
-      preLoaderRoute: typeof FreeAstrologyRamShalakaRouteImport
-      parentRoute: typeof FreeAstrologyRoute
-    }
-    '/free-astrology/numerology': {
-      id: '/free-astrology/numerology'
-      path: '/numerology'
-      fullPath: '/free-astrology/numerology'
-      preLoaderRoute: typeof FreeAstrologyNumerologyRouteImport
-      parentRoute: typeof FreeAstrologyRoute
-    }
-    '/free-astrology/kundli': {
-      id: '/free-astrology/kundli'
-      path: '/kundli'
-      fullPath: '/free-astrology/kundli'
-      preLoaderRoute: typeof FreeAstrologyKundliRouteImport
-      parentRoute: typeof FreeAstrologyRoute
-    }
-    '/devotional/stotram': {
-      id: '/devotional/stotram'
-      path: '/stotram'
-      fullPath: '/devotional/stotram'
-      preLoaderRoute: typeof DevotionalStotramRouteImport
-      parentRoute: typeof DevotionalRoute
-    }
-    '/devotional/mantra': {
-      id: '/devotional/mantra'
-      path: '/mantra'
-      fullPath: '/devotional/mantra'
-      preLoaderRoute: typeof DevotionalMantraRouteImport
-      parentRoute: typeof DevotionalRoute
-    }
-    '/devotional/aarti': {
-      id: '/devotional/aarti'
-      path: '/aarti'
-      fullPath: '/devotional/aarti'
-      preLoaderRoute: typeof DevotionalAartiRouteImport
-      parentRoute: typeof DevotionalRoute
-    }
-    '/blog/$slug': {
-      id: '/blog/$slug'
-      path: '/$slug'
-      fullPath: '/blog/$slug'
-      preLoaderRoute: typeof BlogSlugRouteImport
-      parentRoute: typeof BlogRoute
-    }
-    '/api/cashfree-callback': {
-      id: '/api/cashfree-callback'
-      path: '/api/cashfree-callback'
-      fullPath: '/api/cashfree-callback'
-      preLoaderRoute: typeof ApiCashfreeCallbackRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/settings': {
-      id: '/admin/settings'
-      path: '/settings'
-      fullPath: '/admin/settings'
-      preLoaderRoute: typeof AdminSettingsRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/services': {
-      id: '/admin/services'
-      path: '/services'
-      fullPath: '/admin/services'
-      preLoaderRoute: typeof AdminServicesRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/messages': {
-      id: '/admin/messages'
-      path: '/messages'
-      fullPath: '/admin/messages'
-      preLoaderRoute: typeof AdminMessagesRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/login': {
-      id: '/admin/login'
-      path: '/login'
-      fullPath: '/admin/login'
-      preLoaderRoute: typeof AdminLoginRouteImport
+    '/admin/blog': {
+      id: '/admin/blog'
+      path: '/blog'
+      fullPath: '/admin/blog'
+      preLoaderRoute: typeof AdminBlogRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/bookings': {
@@ -690,19 +592,110 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBookingsRouteImport
       parentRoute: typeof AdminRoute
     }
-    '/admin/blog': {
-      id: '/admin/blog'
-      path: '/blog'
-      fullPath: '/admin/blog'
-      preLoaderRoute: typeof AdminBlogRouteImport
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
       parentRoute: typeof AdminRoute
     }
-    '/admin/services/$id': {
-      id: '/admin/services/$id'
-      path: '/$id'
-      fullPath: '/admin/services/$id'
-      preLoaderRoute: typeof AdminServicesIdRouteImport
-      parentRoute: typeof AdminServicesRoute
+    '/admin/messages': {
+      id: '/admin/messages'
+      path: '/messages'
+      fullPath: '/admin/messages'
+      preLoaderRoute: typeof AdminMessagesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/services': {
+      id: '/admin/services'
+      path: '/services'
+      fullPath: '/admin/services'
+      preLoaderRoute: typeof AdminServicesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/api/cashfree-callback': {
+      id: '/api/cashfree-callback'
+      path: '/api/cashfree-callback'
+      fullPath: '/api/cashfree-callback'
+      preLoaderRoute: typeof ApiCashfreeCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof BlogRoute
+    }
+    '/devotional/aarti': {
+      id: '/devotional/aarti'
+      path: '/aarti'
+      fullPath: '/devotional/aarti'
+      preLoaderRoute: typeof DevotionalAartiRouteImport
+      parentRoute: typeof DevotionalRoute
+    }
+    '/devotional/mantra': {
+      id: '/devotional/mantra'
+      path: '/mantra'
+      fullPath: '/devotional/mantra'
+      preLoaderRoute: typeof DevotionalMantraRouteImport
+      parentRoute: typeof DevotionalRoute
+    }
+    '/devotional/stotram': {
+      id: '/devotional/stotram'
+      path: '/stotram'
+      fullPath: '/devotional/stotram'
+      preLoaderRoute: typeof DevotionalStotramRouteImport
+      parentRoute: typeof DevotionalRoute
+    }
+    '/free-astrology/kundli': {
+      id: '/free-astrology/kundli'
+      path: '/kundli'
+      fullPath: '/free-astrology/kundli'
+      preLoaderRoute: typeof FreeAstrologyKundliRouteImport
+      parentRoute: typeof FreeAstrologyRoute
+    }
+    '/free-astrology/numerology': {
+      id: '/free-astrology/numerology'
+      path: '/numerology'
+      fullPath: '/free-astrology/numerology'
+      preLoaderRoute: typeof FreeAstrologyNumerologyRouteImport
+      parentRoute: typeof FreeAstrologyRoute
+    }
+    '/free-astrology/ram-shalaka': {
+      id: '/free-astrology/ram-shalaka'
+      path: '/ram-shalaka'
+      fullPath: '/free-astrology/ram-shalaka'
+      preLoaderRoute: typeof FreeAstrologyRamShalakaRouteImport
+      parentRoute: typeof FreeAstrologyRoute
+    }
+    '/free-astrology/rashifal': {
+      id: '/free-astrology/rashifal'
+      path: '/rashifal'
+      fullPath: '/free-astrology/rashifal'
+      preLoaderRoute: typeof FreeAstrologyRashifalRouteImport
+      parentRoute: typeof FreeAstrologyRoute
+    }
+    '/free-astrology/vedic-card': {
+      id: '/free-astrology/vedic-card'
+      path: '/vedic-card'
+      fullPath: '/free-astrology/vedic-card'
+      preLoaderRoute: typeof FreeAstrologyVedicCardRouteImport
+      parentRoute: typeof FreeAstrologyRoute
+    }
+    '/services/$slug': {
+      id: '/services/$slug'
+      path: '/$slug'
+      fullPath: '/services/$slug'
+      preLoaderRoute: typeof ServicesSlugRouteImport
+      parentRoute: typeof ServicesRoute
     }
     '/admin/blog/$id': {
       id: '/admin/blog/$id'
@@ -710,6 +703,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/blog/$id'
       preLoaderRoute: typeof AdminBlogIdRouteImport
       parentRoute: typeof AdminBlogRoute
+    }
+    '/admin/services/$id': {
+      id: '/admin/services/$id'
+      path: '/$id'
+      fullPath: '/admin/services/$id'
+      preLoaderRoute: typeof AdminServicesIdRouteImport
+      parentRoute: typeof AdminServicesRoute
     }
   }
 }
